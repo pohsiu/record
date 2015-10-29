@@ -146,9 +146,14 @@ for rows in row:
   imgUrl = soup.find('img',{'data-old-hires':True})
   if imgUrl is None:
     print "NoImgUrl"
-  else:
+  elif imgUrl['data-old-hires']:
     print imgUrl['data-old-hires']
     sheet.write(index,11,imgUrl['data-old-hires'])
+  else:
+    reserve = imgUrl['data-a-dynamic-image'].split('"')
+	  reserve_imgUrl = reserve[1]
+	  print reserve_imgUrl
+	  sheet.write(index,11,reserve_imgUrl)
   #=== ImgUrl ===
 
   index = index + 1
