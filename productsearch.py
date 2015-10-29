@@ -28,6 +28,10 @@ cursor.execute("SELECT Asin From product_category where isout='1'")
 row = cursor.fetchall()
 
 index = 1
+#try:
+#	dosomething()
+#except:
+#	pass
 for rows in row:
   asin = rows[0]
   #ASIN
