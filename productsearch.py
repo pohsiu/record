@@ -147,12 +147,14 @@ for rows in row:
   if imgUrl is None:
     print "NoImgUrl"
   elif imgUrl['data-old-hires']:
+  	# if imgUrl['data-old-hires'] not null
     print imgUrl['data-old-hires']
     sheet.write(index,11,imgUrl['data-old-hires'])
   else:
+  	# if imgUrl['data-old-hires'] is null, take reserve method to fix that
     reserve = imgUrl['data-a-dynamic-image'].split('"')
-	  reserve_imgUrl = reserve[1]
-	  print reserve_imgUrl
+    reserve_imgUrl = reserve[1]
+		print reserve_imgUrl
 	  sheet.write(index,11,reserve_imgUrl)
   #=== ImgUrl ===
 
