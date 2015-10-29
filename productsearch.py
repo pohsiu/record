@@ -99,19 +99,22 @@ for rows in row:
 
   #review
   review = soup.find('span',{'id':'acrCustomerReviewText'},{'class':'a-size-base'})
-  reviewURL = "www.amazon.com/dp/"+asin+"#customerReviews"
+  reviewURL = soup.find('a',{'class':'a-link-emphasis a-text-bold'},{'href':True})
   if review is not None:
     sheet.write(index,6,review.string)
-    sheet.write(index,7,reviewURL)
     print review.string
-    print reviewURL
+    if reviewURL is not None:
+    print reviewURL['href']
+    	sheet.write(index,7,reviewURL['href'])
+    else:
+    	shhet.write(index,7,"www.amazon.com/dp/"+asin+"#customerReviews")
   else:
     print "No Review"
   #review
 
   #Q&A data
   qa = soup.find('a',{'class':'a-link-normal askATFLink'})
-  qaURL = "www.amazon.com/ask/questions/asin/"+asin+"/ref=ask_ql_qlh_hza"
+  qaURL = "http://www.amazon.com/ask/questions/asin/"+asin+"/ref=ask_ql_qlh_hza"
   if qa is not None:
     #level2 find
     qa2 = qa.find('span')
