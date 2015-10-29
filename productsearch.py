@@ -138,12 +138,15 @@ for rows in row:
     #level2 find
   if avail is None:
     avail = soup.find('div',{'id':'availability-brief'},{'class':'a-section a-spacing-none'})
-  avail2 = avail.find('span')
-  if avail2 is None:
-    print "Not Available"
-  else:
-    print avail2.text.encode('utf8')
-    sheet.write(index,10,avail2.text.encode('utf8'))
+  if avail is not None:
+	  avail2 = avail.find('span')
+	  if avail2 is None:
+	    print "Not Available"
+	  else:
+	    print avail2.text.encode('utf8')
+	    sheet.write(index,10,avail2.text.encode('utf8'))
+	else:
+		print "Not Available"
 
   #===availability===
   
