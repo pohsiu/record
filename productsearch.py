@@ -4,7 +4,7 @@ from BeautifulSoup import BeautifulSoup
 import time
 import xlwt
 
-
+#print "Start : %s" % time.ctime()
 book = xlwt.Workbook(encoding="utf-8")
 
 sheet = book.add_sheet("python sheet")
@@ -170,5 +170,6 @@ for rows in row:
   
   
   
-book.save("output.xls") 
+book.save("output.xls")
+#print "End : %s" % time.ctime()
     
