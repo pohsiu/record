@@ -1,0 +1,14 @@
+asin = 
+reviewURL = "www.amazon.com/dp/"+asin+"#customerReviews"
+Q&AURL = "www.amazon.com/ask/questions/asin/"+asin+"/ref=ask_ql_qlh_hza"
+
+star = soup.find('span',{'id':'acrPopover'},{'class':'reviewCountTextLinkedHistogram noUnderline'})
+#star['title']
+
+#other price source
+price = soup.findAll('div',{'class':'a-section a-spacing-small a-spacing-top-small'})
+price_new = price.find('span').string
+price_collect = price.find('span').string
+
+imgUrl = soup.find('img',{'data-old-hires':'True'})
+#imgUrl['data-old-hires']
