@@ -75,14 +75,18 @@ for rows in row:
   else: 
     #check other price source
     otherprice = soup.find('div',{'class':'a-section a-spacing-small a-spacing-top-small'})
-    otherprice_new = otherprice.find('span',{'class':'a-color-price'})
-    #in usual [0]:new, [1]:collectible
-    if otherprice_new is None:
-      print "No price"
-      sheet.write(index,4,"No price")
-    else:
-      print "OtherSourcePrice:"+otherprice_new.string
-      sheet.write(index,4,otherprice_new.string)
+	  if otherprice is not None:  
+	    otherprice_new = otherprice.find('span',{'class':'a-color-price'})
+	    #in usual [0]:new, [1]:collectible
+	    if otherprice_new is None:
+	      print "No price"
+	      sheet.write(index,4,"No price")
+	    else:
+	      print "OtherSourcePrice:"+otherprice_new.string
+	      sheet.write(index,4,otherprice_new.string)
+		else:
+			print "No price"
+	   	
 
   #==== price ====
 
