@@ -98,11 +98,11 @@ for rows in row:
   #=== Star ===
 
   #=== ImgUrl ===
-  imgUrl = soup.find('img',{'data-old-hires':'True'})
+  imgUrl = soup.find('img',{'data-old-hires':True})
   if imgUrl is None:
     print "NoImgUrl"
   else:
-    print mgUrl['data-old-hires']
+    print imgUrl['data-old-hires']
   #=== ImgUrl ===
   
   
