@@ -3,6 +3,13 @@ import requests
 from BeautifulSoup import BeautifulSoup
 import time
 import xlwt
+from datetime import date
+from datetime import timedelta
+
+today = date.today()
+offset = (today.weekday()-5) % 7
+lastSaturday = today - timedelta(days=offset)
+
 
 #print "Start : %s" % time.ctime()
 book = xlwt.Workbook(encoding="utf-8")
