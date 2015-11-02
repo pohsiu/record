@@ -14,6 +14,7 @@ lastSaturday = today - timedelta(days=offset)
 str_lastSaturday =lastSaturday.strftime('%Y-%m-%d')
 str_today = today.strftime('%Y-%m-%d')
 
+
 book = xlwt.Workbook(encoding="utf-8")
 
 sheet = book.add_sheet("python sheet")
@@ -36,7 +37,7 @@ cursor = db.cursor()
 
 
 
-cursor.execute("SELECT Asin From product_category where isout='1' LIMIT 80,100")
+cursor.execute("SELECT Asin From product_category where isout='1'")
 row = cursor.fetchall()
 
 index = 1
@@ -239,4 +240,24 @@ for rows in row:
     index = index + 1
     time.sleep(random.randint(5,10))
     book.save("verTest.xls")
-    #cursor.execute("INSERT INTO product()"
+    cursor.execute("INSERT INTO product(Asin, Title, ListPrice, Price, Star, Status, New, Collectible, Used, ReView, ReViewUrl, QA, QAUrl, DType, DateData, Enddate, Url, ImageUrl, content,  type, availability) VALUES (%s, %s, %s, %s, %s, %s,%s,%s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",(asin,title,lpriceStr, priceStr, starStr,'','',opriceStr,'',reviewStr,reviewURLStr, qaStr, qaURLStr, 'US' ,str_today, str_lastSaturday,'', imgURLStr, descStr, '',availStr))
+    db.commit()
+"""
+index = 1
+
+start = time.ctime()
+mylist=[]
+for rows in row:
+  mylist.append([rows[0],0])
+
+mylist[0][1] = 1
+print mylist[0][1]
+print mylist[5]
+
+for lists in mylist:
+  if lists[1] is 1:
+    print lists[0]
+    
+    
+print datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+"""   
