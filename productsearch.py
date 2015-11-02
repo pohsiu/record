@@ -4,8 +4,15 @@ from BeautifulSoup import BeautifulSoup
 import time
 import xlwt
 import random
-import datetime
+from datetime import date
+from datetime import timedelta
 
+today = date.today()
+offset = (today.weekday()-5) % 7
+lastSaturday = today - timedelta(days=offset)
+
+str_lastSaturday =lastSaturday.strftime('%Y-%m-%d')
+str_today = today.strftime('%Y-%m-%d')
 
 book = xlwt.Workbook(encoding="utf-8")
 
