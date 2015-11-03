@@ -37,27 +37,28 @@ cursor = db.cursor()
 
 
 
-cursor.execute("SELECT Asin From product_category where isout='1'")
+cursor.execute("SELECT Asin From product_category where isout='1' LIMIT 89,150")
 row = cursor.fetchall()
 
 index = 1
 
-asin =''
-title = ''
-priceStr = ''
-lpriceStr = ''
-opriceStr = ''
-starStr = ''
-reviewStr = ''
-reviewURLStr = ''
-qaStr=''
-qaURLStr=''
-availStr=''
-imgURLStr=''
-descStr = ''
+
 
 start = time.ctime()
 for rows in row:
+  asin =''
+  title = ''
+  priceStr = ''
+  lpriceStr = ''
+  opriceStr = ''
+  starStr = ''
+  reviewStr = ''
+  reviewURLStr = ''
+  qaStr=''
+  qaURLStr=''
+  availStr=''
+  imgURLStr=''
+  descStr = ''
   print "===" + `index` + "==="
   asin = rows[0]
   #ASIN
@@ -221,43 +222,32 @@ for rows in row:
     #=== ImgUrl ===
   
     #=== Product Description ===
+  
     desc = soup.find('div',{'id':'productDescription'})
-    spec = soup.find('div',{'class':'text-block a-spacing-small'})
-    if spec is None:
-      if desc is not None:
-        description = desc.find('p')
-        if description is not None:
-          descStr = description.text.encode('utf8')
+    if desc is not None:
+      description = desc.find('p')
+      if description is not None:
+        if description.string:
+          descStr = description.string.__str__('utf8')
           print descStr
           sheet.write(index,12,descStr)
-      else:
-        print "No description"
+        else:
+        #====method 2====
+          li = soup.findAll('li')
+          descStr =''
+          if li is not None:
+            for lis in li:
+              liDetail=lis.findAll('span',{'class':'a-list-item'})
+              for details in liDetail:
+                if details.string:
+                  descStr = descStr+"\n"+(details.string)
+          print descStr
+          sheet.write(index,12,descStr)
     else:
-      descStr = spec.text.encode('utf8')
-      print descStr
-      sheet.write(index,12,descStr)
+      print "No description"
     #=== Product Description ===
     index = index + 1
     time.sleep(random.randint(5,10))
-    book.save("verTest.xls")
+    book.save("verTest_method2.xls")
     cursor.execute("INSERT INTO product(Asin, Title, ListPrice, Price, Star, Status, New, Collectible, Used, ReView, ReViewUrl, QA, QAUrl, DType, DateData, Enddate, Url, ImageUrl, content,  type, availability) VALUES (%s, %s, %s, %s, %s, %s,%s,%s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",(asin,title,lpriceStr, priceStr, starStr,'','',opriceStr,'',reviewStr,reviewURLStr, qaStr, qaURLStr, 'US' ,str_today, str_lastSaturday,'', imgURLStr, descStr, '',availStr))
     db.commit()
-"""
-index = 1
-
-start = time.ctime()
-mylist=[]
-for rows in row:
-  mylist.append([rows[0],0])
-
-mylist[0][1] = 1
-print mylist[0][1]
-print mylist[5]
-
-for lists in mylist:
-  if lists[1] is 1:
-    print lists[0]
-    
-    
-print datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-"""   
