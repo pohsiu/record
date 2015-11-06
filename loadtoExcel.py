@@ -42,11 +42,14 @@ for rows in row:
   
   #keep repeating request until getting the data
   while de_title is None:
-    r = requests.get("http://www.amazon.com/dp/"+asin)
-    r_html= r.text.encode('utf8')
-    soup = BeautifulSoup(r_html)
-    de_title = soup.find('span',{'id':'productTitle'},{'class':'a-size-large'})
-    time.sleep(2)
+    try:
+      r = requests.get("http://www.amazon.com/dp/"+asin)
+      r_html= r.text.encode('utf8')
+      soup = BeautifulSoup(r_html)
+      de_title = soup.find('span',{'id':'productTitle'},{'class':'a-size-large'})
+      time.sleep(2)
+    except:
+      pass
   #=============================================
   
 
