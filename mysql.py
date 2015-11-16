@@ -9,6 +9,7 @@ cursor = db.cursor()
 cursor.execute("SELECT Asin From product_category where isout='1' and asin='B00IQ8MTIY'")
 row = cursor.fetchall()
 
+#test2
 lpriceStr =''
 priceStr=''
 for rows in row:
