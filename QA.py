@@ -45,15 +45,15 @@ for rows in row:
   protect_timeout = 0
   #keep repeating request until getting the data
   while numberofQ is None:
+    protect_timeout = protect_timeout + 1
+    time.sleep(random.randint(3,8))
+    if protect_timeout > 20:
+      break
     try:
       r = requests.get(rows[1])
       r_html= r.text.encode('utf8')
       soup = BeautifulSoup(r_html)
       numberofQ = soup.find('div',{'class':'a-fixed-left-grid-col askPaginationHeaderMessage a-col-left'},{'style':'width:250px;margin-left:-250px;_margin-left:-125px;float:left;'}).text.encode('utf8').split('of ')[1].split(' q')[0]
-      protect_timeout = protect_timeout + 1
-      if protect_timeout > 20:
-        break
-      time.sleep(random.randint(3,8))
     except:
       pass
   #=============================================

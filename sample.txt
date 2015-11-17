@@ -1,1 +1,6 @@
-this is testing
+Debug log
+
+11/16 Run loadtoExcelver2.py | load total other price & function content add
+      QA.py testing stopped by Asin B011JH1PP6 (die out)<reason:no pages; Fail to get questions>
+
+11/17 Test QA.py stop at Asin B000BIX382(by KeyboardInterrupt)
