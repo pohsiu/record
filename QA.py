@@ -94,6 +94,7 @@ for rows in row:
     #http://blog.csdn.net/jiedushi/article/details/6769673
     
     for i in range(0,len(mylist)):
+      time.sleep(random.randint(3,8))
       #===pri===
       asker = ''
       question= ''
@@ -177,11 +178,12 @@ for rows in row:
       else:
         time.sleep(random.randint(3,8))
         pass
-      time.sleep(random.randint(3,8))
+      
     if quotient is 0:
       pass
     else:
       for page in range(2,quotient+1):
+        time.sleep(random.randint(3,8))
         print `page`
         r = requests.get("http://www.amazon.com/ask/questions/asin/"+asin+"/"+`page`+"/ref=ask_ql_qlh_hza")
         r_html= r.text.encode('utf8')
@@ -197,6 +199,7 @@ for rows in row:
               if '/help' not in nestedQ['href']:
                 reslist.append(nestedQ['href'])
         for i in range(0,len(reslist)):
+          time.sleep(random.randint(3,8))
           #===pri===
           asker = ''
           question= ''
@@ -262,9 +265,8 @@ for rows in row:
               index = index + 1
               print "----------------"
                           
-            time.sleep(random.randint(3,8))
+            
           except:
-            time.sleep(random.randint(3,8))
             pass
           
       
