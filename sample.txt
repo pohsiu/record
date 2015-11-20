@@ -4,3 +4,5 @@ Debug log
       QA.py testing stopped by Asin B011JH1PP6 (die out)<reason:no pages; Fail to get questions>
 
 11/17 Test QA.py stop at Asin B000BIX382(by KeyboardInterrupt)
+
+11/20 Test QA.py run during six hours, 72xx row data, one Asin B011JH1PP6 can not retrieve
