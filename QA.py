@@ -25,7 +25,7 @@ sheet.write(0, 8, "Each UrL")
 db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')
 cursor = db.cursor()
 
-cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !='' LIMIT 100, 100")
+cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !=''")
 row = cursor.fetchall()
 
 index = 1
@@ -87,7 +87,7 @@ for rows in row:
           if '/help' not in nestedQ['href']:
             mylist.append(nestedQ['href'])
     
-        
+    r.close()    
     
     #l2=[]
     #[l2.append(i) for i in mylist if not i in l2]
@@ -123,8 +123,8 @@ for rows in row:
           question = question['content'].split('Answers: ')[1].encode('utf8')
           
           askerData = sub_soup.find('div',{'class':'cdAuthorInfoBlock'}).text.encode('utf8').split('asked by')[1].split('on ')
-          asker = askerData[0]
-          askdate = askerData[1]
+          asker = askerData[len(askerData)-2]
+          askdate = askerData[len(askerData)-1]
           
           answers = sub_soup.findAll('div',{'class':'cdMessageInfo'})
           for each in answers:
@@ -172,7 +172,7 @@ for rows in row:
           
        
         
-      
+        sub_r.close()
         #request the last question pages ...
       #except:
       else:
@@ -198,6 +198,7 @@ for rows in row:
             if not nestedQ['href'] in reslist:
               if '/help' not in nestedQ['href']:
                 reslist.append(nestedQ['href'])
+        r.close()
         for i in range(0,len(reslist)):
           time.sleep(random.randint(3,8))
           #===pri===
@@ -220,8 +221,8 @@ for rows in row:
                   #get each quesion & answer info.
             question = sub_soup.find('meta',{'name':'title'})['content'].split('Answers: ')[1]
             askerData = sub_soup.find('div',{'class':'cdAuthorInfoBlock'}).text.encode('utf8').split('asked by')[1].split('on ')
-            asker = askerData[0]
-            askdate = askerData[1]
+            asker = askerData[len(askerData)-2]
+            askdate = askerData[len(askerData)-1]
                 
             answers = sub_soup.findAll('div',{'class':'cdMessageInfo'})
             for each in answers:
@@ -264,7 +265,7 @@ for rows in row:
               book.save("YOLO.xls")
               index = index + 1
               print "----------------"
-                          
+            sub_r.close()              
             
           except:
             pass
