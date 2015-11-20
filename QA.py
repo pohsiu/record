@@ -31,13 +31,16 @@ row = cursor.fetchall()
 index = 1
 
 for rows in row:
-  time.sleep(random.randint(3,8))
+  #time.sleep(random.randint(3,8))
   asin = rows[0]
   #ASIN
   print asin
   #ASIN
-  
-  r = requests.get(rows[1])
+  try:
+    r = requests.get(rows[1])
+  except requests.exceptions.ConnectionError:
+    r.status_code = "Connection Refused"
+
   r_html= r.text.encode('utf8')
   soup = BeautifulSoup(r_html)
 
@@ -113,72 +116,74 @@ for rows in row:
        
       #if i is 5:
       #  continue
-      if 1 is 1:
+      #if 1 is 1:
       #try:
+      try:
         sub_r = requests.get("http://www.amazon.com"+mylist[i])
-        subr_html= sub_r.text.encode('utf8')
-        sub_soup = BeautifulSoup(subr_html)
-          #get each quesion & answer info.
-        question = sub_soup.find('meta',{'name':'title'})
-        if question is not None:
-          question = question['content'].split('Answers: ')[1].encode('utf8')
+      except requests.exceptions.ConnectionError:
+        sub_r.status_code = "Connection Refused"
+      
+      subr_html= sub_r.text.encode('utf8')
+      sub_soup = BeautifulSoup(subr_html)
+        #get each quesion & answer info.
+      question = sub_soup.find('meta',{'name':'title'})
+      if question is not None:
+        question = question['content'].split('Answers: ')[1].encode('utf8')
+        
+        askerData = sub_soup.find('div',{'class':'cdAuthorInfoBlock'}).text.encode('utf8').split('asked by')[1].split('on ')
+        asker = askerData[len(askerData)-2]
+        askdate = askerData[len(askerData)-1]
+        
+        answers = sub_soup.findAll('div',{'class':'cdMessageInfo'})
+        for each in answers:
           
-          askerData = sub_soup.find('div',{'class':'cdAuthorInfoBlock'}).text.encode('utf8').split('asked by')[1].split('on ')
-          asker = askerData[len(askerData)-2]
-          askdate = askerData[len(askerData)-1]
+          subAnswer = each.find('span',{'style':'display:block'})
+          if subAnswer.text.encode('utf8') is '':
+            xcode = subAnswer['id'].split('_')[1]
+            subAnswer = each.find('span',{'id':'long_'+xcode})
+            answer = subAnswer.text.encode('utf8')
+          else: 
+            answer = subAnswer.text.encode('utf8')
           
-          answers = sub_soup.findAll('div',{'class':'cdMessageInfo'})
-          for each in answers:
-            
-            subAnswer = each.find('span',{'style':'display:block'})
-            if subAnswer.text.encode('utf8') is '':
-              xcode = subAnswer['id'].split('_')[1]
-              subAnswer = each.find('span',{'id':'long_'+xcode})
-              answer = subAnswer.text.encode('utf8')
-            else: 
-              answer = subAnswer.text.encode('utf8')
-            
-            Authordata = each.find('div',{'class':'answerAuthor'})
-            if Authordata is not None:
-              Authordata = Authordata.text.encode('utf8').split('answered on ')
-              author = Authordata[0]
-              answerDate = Authordata[1].split('&')[0]
-            
-            voteinfo = each.find('span',{'class':'votingInfo'})
-            if voteinfo is not None:
-              vote = voteinfo.text.encode('utf8')[0]#.split('.')[0]
-            if vote is 'D':
-              vote = '0'
-            print "----------------"
-            print "Question:"+question
-            print "Answer:"+answer
-            print vote
-            print "Writer:"+author
-            print "AnswerDate:"+answerDate
-            print "Asker:"+asker
-            print "AskDate:"+askdate
-            print askerData
-            sheet.write(index,0,asin)
-            sheet.write(index,1,question)
-            sheet.write(index,2,answer)
-            sheet.write(index,3,answerDate)
-            sheet.write(index,4,vote)
-            sheet.write(index,5,author)
-            sheet.write(index,6,asker)
-            sheet.write(index,7,askdate)
-            sheet.write(index,8,"http://www.amazon.com"+mylist[i])
-            book.save("YOLO.xls")  
-            index = index + 1
-            print "----------------"
+          Authordata = each.find('div',{'class':'answerAuthor'})
+          if Authordata is not None:
+            Authordata = Authordata.text.encode('utf8').split('answered on ')
+            author = Authordata[0]
+            answerDate = Authordata[1].split('&')[0]
+          
+          voteinfo = each.find('span',{'class':'votingInfo'})
+          if voteinfo is not None:
+            vote = voteinfo.text.encode('utf8')[0]#.split('.')[0]
+          if vote is 'D':
+            vote = '0'
+          print "----------------"
+          print "Question:"+question
+          print "Answer:"+answer
+          print vote
+          print "Writer:"+author
+          print "AnswerDate:"+answerDate
+          print "Asker:"+asker
+          print "AskDate:"+askdate
+          print askerData
+          sheet.write(index,0,asin)
+          sheet.write(index,1,question)
+          sheet.write(index,2,answer)
+          sheet.write(index,3,answerDate)
+          sheet.write(index,4,vote)
+          sheet.write(index,5,author)
+          sheet.write(index,6,asker)
+          sheet.write(index,7,askdate)
+          sheet.write(index,8,"http://www.amazon.com"+mylist[i])
+          book.save("YOLO.xls")  
+          index = index + 1
+          print "----------------"
           
        
         
-        sub_r.close()
+      sub_r.close()
         #request the last question pages ...
       #except:
-      else:
-        time.sleep(random.randint(3,8))
-        pass
+      
       
     if quotient is 0:
       pass
@@ -186,7 +191,11 @@ for rows in row:
       for page in range(2,quotient+1):
         time.sleep(random.randint(3,8))
         print `page`
-        r = requests.get("http://www.amazon.com/ask/questions/asin/"+asin+"/"+`page`+"/ref=ask_ql_qlh_hza")
+        try:
+          r = requests.get("http://www.amazon.com/ask/questions/asin/"+asin+"/"+`page`+"/ref=ask_ql_qlh_hza")
+        except requests.exceptions.ConnectionError:
+          r.status_code = "Connection Refused"
+          
         r_html= r.text.encode('utf8')
         soup = BeautifulSoup(r_html)
     
