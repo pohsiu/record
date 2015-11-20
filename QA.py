@@ -31,6 +31,7 @@ row = cursor.fetchall()
 index = 1
 
 for rows in row:
+  time.sleep(random.randint(3,8))
   asin = rows[0]
   #ASIN
   print asin
