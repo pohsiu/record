@@ -253,6 +253,7 @@ for rows in row:
               print "AnswerDate:"+answerDate
               print "Asker:"+asker
               print "AskDate:"+askdate
+              print askerData
               sheet.write(index,0,asin)
               sheet.write(index,1,question)
               sheet.write(index,2,answer)
