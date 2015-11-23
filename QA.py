@@ -63,6 +63,7 @@ for rows in row:
   #=============================================
   
   if protect_timeout > 20:
+    sheet.write(index,0,asin)
     index = index + 1
     continue
   else:

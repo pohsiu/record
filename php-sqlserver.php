@@ -37,4 +37,4 @@ modify php.ini
 extension  = php_sqlsrv_54_ts.dll 
 extension  = php_pdo_sqlsrv_54_ts.dll
 restart apache
-/*
+*/
