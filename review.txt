@@ -17,7 +17,7 @@ Review
     	if last > 0:
       		quotient = quotient + 1
     	print quotient
-	reviews = <div class="a-section review">
+	reviews = <div class="">
 		star = <span class="a-icon-alt">
 		title = <a class="a-size-base a-link-normal review-title a-color-base a-text-bold">
 		date = <span class="a-size-base a-color-secondary review-date">
