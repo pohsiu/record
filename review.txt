@@ -1,6 +1,26 @@
 
 Review
 
+	SQL = SELECT Asin, ReViewUrl, Review FROM `product` WHERE `ReViewUrl` != '' AND asin in (select asin from product_category where isout= 1)
+	
+	URL = reviewURL+"/ref=cm_cr_pr_btm_link_"+`pages`+"?pageNumber="+`pages`	
+
 	totalReview >> <span class="a-size-medium a-text-beside-button totalReviewCount">961</span>
 	eachpage >> 10
+
+	num = int(totalReview)
+    	#convert questions to int, calculate the pages of questions
+    	last = num%10
+    	quotient = num/10
+    	if quotient is 0:
+      		last = 0
+    	if last > 0:
+      		quotient = quotient + 1
+    	print quotient
+	reviews = <div class="a-section review">
+		star = <span class="a-icon-alt">
+		title = <a class="a-size-base a-link-normal review-title a-color-base a-text-bold">
+		date = <span class="a-size-base a-color-secondary review-date">
+		writer = <a class="a-size-base a-link-normal author">
+		contents = <span class="a-size-base review-text">
 	
