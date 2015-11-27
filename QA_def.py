@@ -4,9 +4,16 @@ from BeautifulSoup import BeautifulSoup
 import time
 import xlwt
 import random
+import os
+
+
 
 start = time.ctime()
+global index
 
+def indexadd():
+    global index
+    index = index + 1
 
 def pageRequest(asin,mylist):
   for i in range(0,len(mylist)):
@@ -82,7 +89,9 @@ def pageRequest(asin,mylist):
         sheet.write(index,7,askdate)
         sheet.write(index,8,"http://www.amazon.com"+mylist[i])
         book.save("YOLO.xls")  
-        index = index + 1
+        indexadd()
+        #global index 
+        #index = index + 1
         print "----------------"
 
 
@@ -106,6 +115,8 @@ cursor = db.cursor()
 cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !=''")
 row = cursor.fetchall()
 
+
+ 
 index = 1
 
 for rows in row:
@@ -176,6 +187,7 @@ for rows in row:
     #[l2.append(i) for i in mylist if not i in l2]
     #http://blog.csdn.net/jiedushi/article/details/6769673
     pageRequest(asin,mylist)
+    #index = index +1
     
           
        
@@ -211,6 +223,7 @@ for rows in row:
         r.close()
         #close r
         pageRequest(asin,reslist)
+        #index = index +1
         
                         
             
