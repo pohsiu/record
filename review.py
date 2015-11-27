@@ -87,7 +87,7 @@ for rows in row:
         str_date = date.string.split('on ')[1]
         print "DATE:"+ str_date
       if writer:
-        str_writer = writer.string
+        str_writer = writer.text.encode('utf8')
         print "WRITER:"+str_writer
       if contents:
         str_contents = contents.text.encode('utf8')
@@ -131,16 +131,21 @@ for rows in row:
           contents = run.find('span',{'class':'a-size-base review-text'})
           #<span class="a-size-base review-text">
           if star:
-            print "STAR:"+star.string
+            str_star = star.string
+            print "STAR:"+ str_star
           if title:
-            print "TITLE:"+title.string
+            str_title = title.string 
+            print "TITLE:"+ str_title
           if date:
-            print "DATE:"+date.string
+            str_date = date.string.split('on ')[1]
+            print "DATE:"+ str_date
           if writer:
-            print "WRITER:"+writer.string
+            str_writer = writer.text.encode('utf8')
+            print "WRITER:"+str_writer
           if contents:
+            str_contents = contents.text.encode('utf8')
             print "CONTENTS:"
-            print contents.text.encode('utf8')
+            print str_contents
           sheet.write(index, 0, asin)
           sheet.write(index, 1, str_star)
           sheet.write(index, 2, str_title)
