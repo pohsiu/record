@@ -26,6 +26,7 @@ for (each url)
   for i in 2:總頁數重複上述迴圈 <<從page2開始
   #有改寫成def方式（尚在測試階段） 
 }
+//耗時著手進行multiprocess
 
 ==========================================
 
@@ -41,3 +42,4 @@ for(each url)
   }
   for i in 2:總頁數重複上述迴圈 <<從page2開始
 }
+//Review目前有Memory Error的問題
