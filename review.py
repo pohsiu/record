@@ -102,19 +102,7 @@ for rows in row:
         str_contents = contents.text.encode('utf8')
         print "CONTENTS:"
         print str_contents
-<<<<<<< HEAD
-      sheet.write(index, 0, asin)
-      sheet.write(index, 1, str_star)
-      sheet.write(index, 2, str_title)
-      sheet.write(index, 3, str_date)
-      sheet.write(index, 4, str_writer)
-      sheet.write(index, 5, str_contents)
-      sheet.write(index, 6, row[1])
-      try:
-        book.save("reviews.xls")
-      except:
-        pass
-=======
+
       # sheet.write(index, 0, asin)
       # sheet.write(index, 1, str_star)
       # sheet.write(index, 2, str_title)
@@ -126,7 +114,7 @@ for rows in row:
       cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s, )",( asin, str_star, str_title, str_date, str_writer, str_contents, rows[1]))
       db.commit()
 
->>>>>>> 585394a462bf664adcaa1ec2326b64a8f0edf63c
+
       index = index + 1
       print "=================="
     #============
@@ -178,19 +166,7 @@ for rows in row:
             str_contents = contents.text.encode('utf8')
             print "CONTENTS:"
             print str_contents
-<<<<<<< HEAD
-          sheet.write(index, 0, asin)
-          sheet.write(index, 1, str_star)
-          sheet.write(index, 2, str_title)
-          sheet.write(index, 3, str_date)
-          sheet.write(index, 4, str_writer)
-          sheet.write(index, 5, str_contents)
-          sheet.write(index, 6, urlR)
-          try:
-            book.save("reviews.xls")
-          except:
-            pass
-=======
+
           # sheet.write(index, 0, asin)
           # sheet.write(index, 1, str_star)
           # sheet.write(index, 2, str_title)
@@ -201,7 +177,6 @@ for rows in row:
           # book.save("reviews.xls")
           cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s, )",( asin, str_star, str_title, str_date, str_writer, str_contents, urlR))
           db.commit()
->>>>>>> 585394a462bf664adcaa1ec2326b64a8f0edf63c
           index = index + 1
           print "=================="
     
