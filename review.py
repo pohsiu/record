@@ -100,7 +100,10 @@ for rows in row:
       sheet.write(index, 4, str_writer)
       sheet.write(index, 5, str_contents)
       sheet.write(index, 6, row[1])
-      book.save("reviews.xls")
+      try:
+        book.save("reviews.xls")
+      except:
+        pass
       index = index + 1
       print "=================="
     #============
@@ -153,7 +156,10 @@ for rows in row:
           sheet.write(index, 4, str_writer)
           sheet.write(index, 5, str_contents)
           sheet.write(index, 6, urlR)
-          book.save("reviews.xls")
+          try:
+            book.save("reviews.xls")
+          except:
+            pass
           index = index + 1
           print "=================="
     
