@@ -7,18 +7,19 @@ import random
 
 start = time.ctime()
 
-book = xlwt.Workbook(encoding="utf-8")
+# book = xlwt.Workbook(encoding="utf-8")
 
-sheet = book.add_sheet("python sheet")
-sheet.write(0, 0, "Asin")
-sheet.write(0, 1, "Star")
-sheet.write(0, 2, "Title")
-sheet.write(0, 3, "Date")
-sheet.write(0, 4, "Writer")
-sheet.write(0, 5, "Content")
-sheet.write(0, 6, "URL")
+# sheet = book.add_sheet("python sheet")
+# sheet.write(0, 0, "Asin")
+# sheet.write(0, 1, "Star")
+# sheet.write(0, 2, "Title")
+# sheet.write(0, 3, "Date")
+# sheet.write(0, 4, "Writer")
+# sheet.write(0, 5, "Content")
+# sheet.write(0, 6, "URL")
 
-db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')
+#db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')#localhost
+db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='crawlerdb')#server
 cursor = db.cursor()
 
 cursor.execute("SELECT Asin, ReViewUrl, Review FROM `product` WHERE `ReViewUrl` != '' AND asin in (select asin from product_category where isout= 1)")
@@ -27,6 +28,9 @@ row = cursor.fetchall()
 index = 1
 
 for rows in row:
+  asin = ''
+  
+
   asin = rows[0]
   #ASIN
   print asin
@@ -67,6 +71,11 @@ for rows in row:
     #===page 1===
     reviews = soup.findAll('div',{'class':'a-section review'})
     for run in reviews:
+      str_star = ''
+      str_title = ''
+      str_date = ''
+      str_writer = ''
+      str_contents = ''
       star = run.find('span',{'class':'a-icon-alt'})
       #<span class="a-icon-alt">
       title = run.find('a',{'class':'a-size-base a-link-normal review-title a-color-base a-text-bold'})
@@ -93,14 +102,17 @@ for rows in row:
         str_contents = contents.text.encode('utf8')
         print "CONTENTS:"
         print str_contents
-      sheet.write(index, 0, asin)
-      sheet.write(index, 1, str_star)
-      sheet.write(index, 2, str_title)
-      sheet.write(index, 3, str_date)
-      sheet.write(index, 4, str_writer)
-      sheet.write(index, 5, str_contents)
-      sheet.write(index, 6, row[1])
-      book.save("reviews.xls")
+      # sheet.write(index, 0, asin)
+      # sheet.write(index, 1, str_star)
+      # sheet.write(index, 2, str_title)
+      # sheet.write(index, 3, str_date)
+      # sheet.write(index, 4, str_writer)
+      # sheet.write(index, 5, str_contents)
+      # sheet.write(index, 6, row[1])
+      # book.save("reviews.xls")
+      cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s, )",( asin, str_star, str_title, str_date, str_writer, str_contents, rows[1]))
+      db.commit()
+
       index = index + 1
       print "=================="
     #============
@@ -120,6 +132,12 @@ for rows in row:
         soup = BeautifulSoup(r_html)
         reviews = soup.findAll('div',{'class':'a-section review'})
         for run in reviews:
+          str_star = ''
+          str_title = ''
+          str_date = ''
+          str_writer = ''
+          str_contents = ''
+
           star = run.find('span',{'class':'a-icon-alt'})
           #<span class="a-icon-alt">
           title = run.find('a',{'class':'a-size-base a-link-normal review-title a-color-base a-text-bold'})
@@ -146,14 +164,16 @@ for rows in row:
             str_contents = contents.text.encode('utf8')
             print "CONTENTS:"
             print str_contents
-          sheet.write(index, 0, asin)
-          sheet.write(index, 1, str_star)
-          sheet.write(index, 2, str_title)
-          sheet.write(index, 3, str_date)
-          sheet.write(index, 4, str_writer)
-          sheet.write(index, 5, str_contents)
-          sheet.write(index, 6, urlR)
-          book.save("reviews.xls")
+          # sheet.write(index, 0, asin)
+          # sheet.write(index, 1, str_star)
+          # sheet.write(index, 2, str_title)
+          # sheet.write(index, 3, str_date)
+          # sheet.write(index, 4, str_writer)
+          # sheet.write(index, 5, str_contents)
+          # sheet.write(index, 6, urlR)
+          # book.save("reviews.xls")
+          cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s, )",( asin, str_star, str_title, str_date, str_writer, str_contents, urlR))
+          db.commit()
           index = index + 1
           print "=================="
     
