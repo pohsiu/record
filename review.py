@@ -18,8 +18,8 @@ start = time.ctime()
 # sheet.write(0, 5, "Content")
 # sheet.write(0, 6, "URL")
 
-#db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')#localhost
-db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='crawlerdb')#server
+db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')#localhost
+#db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='crawlerdb')#server
 cursor = db.cursor()
 
 cursor.execute("SELECT Asin, ReViewUrl, Review FROM `product` WHERE `ReViewUrl` != '' AND asin in (select asin from product_category where isout= 1)")
@@ -111,7 +111,7 @@ for rows in row:
       # sheet.write(index, 5, str_contents)
       # sheet.write(index, 6, row[1])
       # book.save("reviews.xls")
-      cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s, )",( asin, str_star, str_title, str_date, str_writer, str_contents, rows[1]))
+      cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s )",( asin, str_star, str_title, str_date, str_writer, str_contents))
       db.commit()
 
 
@@ -175,7 +175,7 @@ for rows in row:
           # sheet.write(index, 5, str_contents)
           # sheet.write(index, 6, urlR)
           # book.save("reviews.xls")
-          cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s, )",( asin, str_star, str_title, str_date, str_writer, str_contents, urlR))
+          cursor.execute("INSERT INTO raw_review(Asin, Star, Title, Date, writer, Content) VALUES (%s, %s, %s, %s, %s, %s )",( asin, str_star, str_title, str_date, str_writer, str_contents))
           db.commit()
           index = index + 1
           print "=================="
