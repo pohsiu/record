@@ -175,7 +175,7 @@ for rows in row:
           sheet.write(index,7,askdate)
           sheet.write(index,8,"http://www.amazon.com"+mylist[i])
           book.save("QA"+str(today)+".xls")
-          cursor.execute("INSERT INTO raw_qa(ID, Asin, AmazonID, Question, Ans, Date, votes, Writer, Asker, AskDate)VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",('',asin,'',question,answer,answerDate,vote,author,asker,askdate))
+          cursor.execute("INSERT IGNORE INTO raw_qa(ID, Asin, AmazonID, Question, Ans, Date, votes, Writer, Asker, AskDate)VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",('',asin,'',question,answer,answerDate,vote,author,asker,askdate))
           db.commit()  
           index = index + 1
           print "----------------"
@@ -281,7 +281,7 @@ for rows in row:
             sheet.write(index,7,askdate)
             sheet.write(index,8,"http://www.amazon.com"+reslist[i])
             book.save("QA"+str(today)+".xls")
-            cursor.execute("INSERT INTO raw_qa(ID, Asin, AmazonID, Question, Ans, Date, votes, Writer, Asker, AskDate)VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",('',asin,'',question,answer,answerDate,vote,author,asker,askdate))
+            cursor.execute("INSERT IGNORE INTO raw_qa(ID, Asin, AmazonID, Question, Ans, Date, votes, Writer, Asker, AskDate)VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",('',asin,'',question,answer,answerDate,vote,author,asker,askdate))
             db.commit()
             index = index + 1
             print "----------------"
