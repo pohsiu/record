@@ -4,9 +4,10 @@ from BeautifulSoup import BeautifulSoup
 import time
 import xlwt
 import random
+from datetime import date
 
 start = time.ctime()
-
+today = date.today()
 
 book = xlwt.Workbook(encoding="utf-8")
 
@@ -25,7 +26,7 @@ sheet.write(0, 8, "Each UrL")
 db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')
 cursor = db.cursor()
 
-cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !=''")
+cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !='' LIMIT 0,10")
 row = cursor.fetchall()
 
 index = 1
@@ -173,7 +174,9 @@ for rows in row:
           sheet.write(index,6,asker)
           sheet.write(index,7,askdate)
           sheet.write(index,8,"http://www.amazon.com"+mylist[i])
-          book.save("YOLO.xls")  
+          book.save("QA"+str(today)+".xls")
+          cursor.execute("INSERT INTO raw_qa(ID, Asin, AmazonID, Question, Ans, Date, votes, Writer, Asker, AskDate)VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",('',asin,'',question,answer,answerDate,vote,author,asker,askdate))
+          db.commit()  
           index = index + 1
           print "----------------"
           
@@ -277,7 +280,9 @@ for rows in row:
             sheet.write(index,6,asker)
             sheet.write(index,7,askdate)
             sheet.write(index,8,"http://www.amazon.com"+reslist[i])
-            book.save("YOLO.xls")
+            book.save("QA"+str(today)+".xls")
+            cursor.execute("INSERT INTO raw_qa(ID, Asin, AmazonID, Question, Ans, Date, votes, Writer, Asker, AskDate)VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",('',asin,'',question,answer,answerDate,vote,author,asker,askdate))
+            db.commit()
             index = index + 1
             print "----------------"
                         
