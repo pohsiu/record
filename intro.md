@@ -8,7 +8,7 @@ raw_product.py << 白名單產品基本資訊寫入raw_product table 並 輸出e
 ==========================================
 
 
-raw_QA.py  輸出成QAyyyy-mmdd.xls （查看book.save(“QAyyyy-mmdd.xls”)) 有兩個
+raw_QA.py  輸出成QAyyyy-mm-dd.xls （查看book.save(“QAyyyy-mm-dd.xls”)) 有兩個
 
 一個Asin 對應 一個 QA URL = first page of QA 對應 1~多個pages 
 (一個page 對應 1~多個questions
