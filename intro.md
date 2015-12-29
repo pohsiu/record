@@ -8,7 +8,16 @@ raw_product.py << 白名單產品基本資訊寫入raw_product table 並 輸出e
 ==========================================
 
 
-QA.py  輸出成QAxxxx.xls （查看book.save(“QAxxxx.xls”)) 有兩個
+raw_QA.py  輸出成QAyyyy-mmdd.xls （查看book.save(“QAyyyy-mmdd.xls”)) 有兩個
+
+一個Asin 對應 一個 QA URL = first page of QA 對應 1~多個pages 
+(一個page 對應 1~多個questions
+ (一個question 對應 1~多個answers
+                    (一個answer 對應多個 answer data)
+  )
+)
+
+
 從DB擷取asin, QaUrl
 for (each url)
 {
@@ -23,14 +32,13 @@ for (each url)
     擷取對應question之所有answer
    }
   }
-  for i in 2:總頁數重複上述迴圈 <<從page2開始
-  #有改寫成def方式（尚在測試階段） 
+  for i in 2:總頁數重複上述迴圈 <<從page2開始 
 }
-//耗時著手進行multiprocess
+
 
 ==========================================
 
-review.py 輸出成 reviewXXXX.xls （查看book.save....）有兩個
+review.py 直接寫入db
 從DB擷取asin與reviewurl, review作為日後更新備用
 for(each url)
 {
@@ -42,4 +50,4 @@ for(each url)
   }
   for i in 2:總頁數重複上述迴圈 <<從page2開始
 }
-//Review目前有Memory Error的問題
+
