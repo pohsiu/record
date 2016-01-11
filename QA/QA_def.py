@@ -5,9 +5,10 @@ import time
 import xlwt
 import random
 import os
+from datetime import date
 
 
-
+today = date.today()
 start = time.ctime()
 global index
 
@@ -88,7 +89,7 @@ def pageRequest(asin,mylist):
         sheet.write(index,6,asker)
         sheet.write(index,7,askdate)
         sheet.write(index,8,"http://www.amazon.com"+mylist[i])
-        book.save("YOLO.xls")  
+        book.save("QA"+str(today)+".xls")  
         indexadd()
         #global index 
         #index = index + 1

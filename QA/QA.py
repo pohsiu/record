@@ -26,10 +26,11 @@ sheet.write(0, 8, "Each UrL")
 db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')
 cursor = db.cursor()
 
-cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !='' LIMIT 0,10")
+cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !=''")
 row = cursor.fetchall()
 
 index = 1
+#row = ["B000161RFA","http://www.amazon.com/ask/questions/asin/B000161RFA/2/ref=ask_dp_iaw_ql_hza#question-TxX0H2N64WPEWQ"]
 
 for rows in row:
   #time.sleep(random.randint(3,8))
