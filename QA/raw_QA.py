@@ -23,7 +23,7 @@ sheet.write(0, 7, "QuesAskDate")
 sheet.write(0, 8, "Each UrL")
 
 
-db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='crawlerdb')
+db = MySQLdb.connect(host='localhost', user='root',passwd='',db='db')
 cursor = db.cursor()
 
 cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !=''")
