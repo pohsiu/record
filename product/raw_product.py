@@ -33,7 +33,7 @@ sheet.write(0, 11, "ImgUrl")
 sheet.write(0, 12, "Product Description")
 sheet.write(0, 13, "Function Description")
 
-db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='toy_union')
+db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')
 cursor = db.cursor()
 
 
