@@ -20,7 +20,7 @@ sheet.write(0, 5, "Content")
 sheet.write(0, 6, "URL")
 
 #db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')#localhost
-db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='crawlerdb')#server
+
 cursor = db.cursor()
 
 cursor.execute("SELECT asin, url FROM `debug_review` WHERE asin in (select asin from product_category where isout= 1)")
