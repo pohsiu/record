@@ -24,7 +24,7 @@ sheet.write(0, 8, "Each UrL")
 
 
 db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')
-#db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='crawlerdb')
+
 cursor = db.cursor()
 
 cursor.execute("SELECT Asin, QAUrl FROM product where QAUrl !='' and asin = 'B0007WFI5I'")
