@@ -20,7 +20,7 @@ start = time.ctime()
 # sheet.write(0, 6, "URL")
 
 #db = MySQLdb.connect(host='localhost', user='root',passwd='',db='toy_union')#localhost
-db = MySQLdb.connect(host='localhost', user='james',passwd='james123!',db='crawlerdb')#server
+
 cursor = db.cursor()
 
 cursor.execute("SELECT Asin, ReViewUrl, Review FROM `product` WHERE `ReViewUrl` != '' AND asin in (select asin from product_category where isout= 1)")
