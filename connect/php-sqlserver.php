@@ -1,8 +1,8 @@
 <?php
-$serverName = "P15684-R700-IDS\SQLEXPRESS"; //serverName\instanceName
+$serverName = "adminID\SQLEXPRESS"; //serverName\instanceName
 // Since UID and PWD are not specified in the $connectionInfo array,
 // The connection will be attempted using Windows Authentication.
-$connectionInfo = array( "Database"=>"CrawlerDB", "UID"=>"james", "PWD"=>"james123!");
+$connectionInfo = array( "Database"=>"db", "UID"=>"root", "PWD"=>"root");
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 if( $conn === false ) {
      die( print_r( sqlsrv_errors(), true));
